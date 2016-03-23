@@ -24,6 +24,8 @@ This migration tool assumes the following:
   * The docker engine must run with the option "--insecure-registry V1_REGISTRY --insecure-registry V2_REGISTRY"
   * The docker engine version must be at least 1.6(>=1.6)
   * bc,sed and gawk tools are needed in running environments	
+  * The name of docker images must be namespace/repo:tag, namespace,repo and tag are all to be required!!!
+  * During the Migration,it is suggested that there is no push to neither v1 registry nor v2 registry 
 
 It is suggested that you run this container on a Docker engine that is located near your registry as you will need to pull down images from your v1 registry and push them to the v2 registry to complete the migration.  This also means that you will need enough disk space on your local Docker engine to temporarily store images.
 
@@ -34,16 +36,16 @@ The migration occurs using an automated script. Running using the above usage wi
 	1. Init the arguments and display information
 	 	* Init the V1_REGISTRY and V2_REGISTRY
 	  * Init the display information(something about the color:INFO ERROR OK)
-	2. Verify the arguments and disk sapce and docker engine
+	2. Verify the arguments,disk sapce and docker engine
 2. Query the v1 registry for a list of all repositories
-3. With the list of images, query the v1 registry for all tags for each repository.  This becomes the list of all images with tags that exist in v1 registry
+3. With the list of images, query the v1 registry for all tags for each repository.This becomes the list of all images with tags that exist in v1 registry
 4. Do the same as step 2 and 3 to get the list of all images with tags that exist in v2 registry
 5. Exclude the images that exist in v2 registry from v1 registry image list to get the actual image list to be Migrated
-6. Get the user list  from actual image list
-7. Using a Docker engine, pull images from the actual image list,retag images,push images to the v2 registry and delete local cached images
+6. Get the user list from actual image list
+7. Using a Docker engine, pull images from the actual image list,tag images,push images to the v2 registry and delete local cached images
 8. Migrating scheme:Loop through all images in the same namespace(user) before deleting locally
   * Check the local disk space and ensure that 100G amount of disk space is free before removing the currently cached images locally
-9. Verify v1 to v2 image migration was successful(completed!) 
+9. Verify whether or not the migration was successful(completed!) 
   * By check whether v1 registry images all exist in v2 registry
 
 
