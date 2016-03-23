@@ -15,7 +15,7 @@ initialize_migrator() {
 	# pre-configure ok, warning, and error output
 	OK="[${GREEN}OK${CLEAR}]"
 	INFO="[${BLUE}INFO${CLEAR}]"
-	#NOTICE="[${YELLOW}!!${CLEAR}]"
+	NOTICE="[${YELLOW}!!${CLEAR}]"
 	ERROR="[${RED}ERROR${CLEAR}]"
 	
 	#set Registry endpoint	
@@ -327,6 +327,8 @@ pull_images(){
 				ADD_PULL_LIST="${ADD_PULL_LIST} ${j}"
 				push_pull_image "pull" "${V1_REGISTRY}/${j}"	
 			else
+				echo -e "\n${NOTICE} Disk space is reaching the limit,Starting deleting local cached images"
+				
 				for k in ${ADD_PULL_LIST}
 				do
 					retag_image "${V1_REGISTRY}/${k}" "${V2_REGISTRY}/${k}"
