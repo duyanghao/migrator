@@ -58,7 +58,7 @@ disk_space_enough() {
 			return 0
 			;;
 		G)
-			local ret=`echo "${sapce}<100" | bc`
+			local ret=`echo "${space}<100" | bc`
 			if [ ${ret} -eq 1 ]
 			then
 				return 0
