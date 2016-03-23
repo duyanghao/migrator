@@ -51,3 +51,7 @@ The migration occurs using an automated script. Running using the above usage wi
 
 ## Logging Migration Output
 If you need to log the output from migrator, add `>> migration.log 2>&1 ` to the end of the command shown above to capture the output to a file of your choice.
+
+## Adapting changes for Migration from v2 registry to v2 registry
+1. Changing images query from "curl /v1/search" to "curl /v2/_catalog"
+2. Changing tags query from "curl /v1/repositories/namespace/repo/tags" to "curl /v2/namespace/repo/tags/list" 
