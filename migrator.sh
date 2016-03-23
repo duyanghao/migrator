@@ -49,22 +49,25 @@ disk_space_enough() {
 		level=`df -h| sed -n '/\/data$/p' | gawk '{print $4}' | sed 's/%//' | sed 's/[0-9]*//'`
 		if [ -z ${level} ]
 		then
-			echo "grep error"
-			return 0
+			catch_error "error in parsing disk space level:${level}"
 		fi
 	fi
-	local space=`df -h| sed -n '/\/data$/p' | gawk '{print $4}' | sed 's/%//' | sed 's/G//'`	
+	local space=`df -h| sed -n '/\/data$/p' | gawk '{print $4}' | sed 's/%//' | sed 's/[A-Z]//'`	
 	case ${level} in
 		K|M)
 			return 0
 			;;
-		G|T)
-			if [ ${space} -lt 100 ]
+		G)
+			local ret=`echo "${sapce}<100" | bc`
+			if [ ${ret} -eq 1 ]
 			then
 				return 0
 			else
 				return 1
 			fi
+			;;
+		T)
+			return 1
 			;;
 		*)
 			return 0

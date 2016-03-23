@@ -18,11 +18,12 @@ bash migrator.sh V1_REGISTRY V2_REGISTRY
 ## Prerequisites
 This migration tool assumes the following:
 
-  * You have a v1 registry  and you are planning on migrating to a v2 registry
+  * You have a v1 registry and you are planning on migrating to a v2 registry
   * The new v2 registry is running using a different DNS name as the v1 registry
   * The docker engine has enough disk space(more than 1T free)
   * The docker engine must run with the option "--insecure-registry V1_REGISTRY --insecure-registry V2_REGISTRY"
   * The docker engine version must be at least 1.6(>=1.6)
+  * bc,sed and gawk tools are needed in running environments	
 
 It is suggested that you run this container on a Docker engine that is located near your registry as you will need to pull down images from your v1 registry and push them to the v2 registry to complete the migration.  This also means that you will need enough disk space on your local Docker engine to temporarily store images.
 
