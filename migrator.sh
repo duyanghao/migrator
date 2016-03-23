@@ -423,12 +423,19 @@ BLOCK
 
 # main function
 main() {
+	local begin=`date +%s`
 	initialize_migrator "${1}" "${2}"
 	verify_ready
 	query_images
 	show_image_list
 	pull_images
+	local end=`date +%s`
 	migration_complete_judge
+
+	local interval=$((end-begin))
+	echo -e "\n${INFO} running ${interval} seconds"
+	interval=`echo "${interval}/3600.0" | bc`
+	echo -e "\n${INFO} running ${interval} hours"
 }
 
 main "$@"
