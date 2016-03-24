@@ -164,7 +164,7 @@ BLOCK
 			fi	 
 		done
 	done
-	echo -e "${OK} Successfully retrieved v2 registry list of Docker images from ${V1_REGISTRY}"
+	echo -e "${OK} Successfully retrieved v2 registry list of Docker images from ${V2_REGISTRY}"
 
 :<<BLOCK
 	for i in ${REPO_V2_LIST}
